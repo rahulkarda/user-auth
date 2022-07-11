@@ -4,7 +4,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const { adminAuth, userAuth } = require("./middleware/auth.js");
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.set("view engine", "ejs");
 
