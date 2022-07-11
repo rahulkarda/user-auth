@@ -2,10 +2,11 @@ const express = require("express");
 const connectDB = require("./db");
 const app = express();
 const cookieParser = require("cookie-parser");
+const cors = require('cors')
 const { adminAuth, userAuth } = require("./middleware/auth.js");
-
 const PORT = process.env.PORT || 5000;
 
+app.use(cors())
 app.set("view engine", "ejs");
 
 connectDB();
