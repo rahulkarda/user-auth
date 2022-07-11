@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Admin page</title>
+  </head>
+
+  <body>
+    <div class="flex justify-center admin-users dark:bg-gray-900 admin-page h-full">
+      <div class="display" style="background-color: red; color: white; text-align: center;"></div>
+      <h1 class="text-4xl font-normal leading-normal mt-4 mb-2 text-slate-800 text-white">
+        Admin Page
+      </h1>
+      <ol
+        class="bg-white rounded-lg border border-gray-700 w-96 text-gray-900 user-list"
+      ></ol>
+      <button
+      id="logout"
+        class="logout bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6 mb-5"
+      >
+        <a href="/logout">Log Out</a>
+      </button>
+    </div>
+    <script>
+      const ol = document.querySelector("ol");
+      const display = document.querySelector(".display");
+      const logout = document.getElementById('logout')
+      logout.addEventListener('click', () => window.location.href = '/logout')
+      const getUsers = async () => {
+        const res = await fetch("/api/auth/getUsers");
+        const data = await res.json();
+        data.user.map((mappedUser) => {
+          if (mappedUser.username !== "admin") {
+            let li = `<li class="px-6 py-2"> <b>Username</b> : ${mappedUser.username} <br> <b>Role</b> : ${mappedUser.role} </li> <button class="edit">Edit Role</button> <button class="delete border-b border-gray-400 w-full rounded-t-lg">Delete User</button>`;
+            ol.innerHTML += li;
+          } else {
+            return null;
+          }
+          const editRole = document.querySelectorAll(".edit");
+          const deleteUser = document.querySelectorAll(".delete");
+          editRole.forEach((button, i) => {
+            button.addEventListener("click", async () => {
+              display.textContent = "";
+              const id = data.user[i].id;
+              const res = await fetch("/api/auth/update", {
+                method: "PUT",
+                body: JSON.stringify({ role: "admin", id }),
+                headers: { "Content-Type": "application/json" },
+              });
+              const dataUpdate = await res.json();
+              if (res.status === 400 || res.status === 401) {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+                return (display.textContent = `${dataUpdate.message}. ${
+                  dataUpdate.error ? dataUpdate.error : ""
+                }`);
+              }
+              location.assign("/admin");
+            });
+          });
+          deleteUser.forEach((button, i) => {
+            button.addEventListener("click", async () => {
+              display.textContent = "";
+              const id = data.user[i].id;
+              const res = await fetch("/api/auth/deleteUser", {
+                method: "DELETE",
+                body: JSON.stringify({ id }),
+                headers: { "Content-Type": "application/json" },
+              });
+              const dataDelete = await res.json();
+              if (res.status === 401) {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+                return (display.textContent = `${dataUpdate.message}. ${
+                  dataUpdate.error ? dataUpdate.error : ""
+                }`);
+              }
+              location.assign("/admin");
+            });
+          });
+        });
+      };
+      getUsers();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+/* body{
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* background: url('https://images.unsplash.com/photo-1558481795-7f0a7c906f5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1196&q=80');
+    background-repeat: no-repeat;
+    background-size: cover; */
+/* } */
+/* .login{
+    margin-top: 10%;
+} */
+/* .h-screen{
+    height: 80vh !important;
+} */
+.home{
+    border: 2px solid black;
+    padding: 25px;
+    width: 50%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.auth{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+form input{
+    margin-bottom: 15px;
+}
+li{
+    margin-top: 10px;
+}
+h1{
+    margin-top: 10%;
+}
+button{
+    margin-top: 10px;
+}
+.users{
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    /* margin-top: 10%; */
+}
+.admin-users{
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    /* margin-top: 30%; */
+}
+.edit,.delete{
+    color: blue;
+}
+.user-page,.admin-page{
+    height: 100vh;
+}
+@media screen and (max-width: 900px) {
+    .users ol,.admin-users ol{
+        width: 90%;
+    }
+}
+
+button{
+    margin-bottom: 5%;
+}

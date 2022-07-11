@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <title>User page</title>
+</head>
+<body>
+  <div class="flex justify-center users dark:bg-gray-900 user-page h-screen">
+    <h1 class="text-4xl font-normal leading-normal mt-0 mb-2 text-slate-800 text-white">Users</h1>
+  <ol class="bg-white rounded-lg border border-gray-700 w-96 text-gray-900 user-list"></ol>
+  <button class="logout bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6" id="logout"> <a href="/logout">Log Out</a></button>
+</div>
+  <script>
+    const ol = document.querySelector('ol')
+    const logout = document.getElementById('logout')
+    logout.addEventListener('click', () => window.location.href = '/logout')
+    const getUsers = async() => {
+      const res = await fetch('/api/auth/getUsers')
+      const data = await res.json()
+      data.user.map((mappedUser)=> {
+        if (mappedUser.username !== 'admin') {
+          let li = `<li class="px-6 py-2 border-b border-gray-400 w-full rounded-t-lg"> <b>Username</b> : ${mappedUser.username} <br> <b>Role</b> : ${mappedUser.role} </li>`
+          ol.innerHTML += li
+        } else {
+          return null
+        }
+      })
+    }
+    getUsers()
+  </script>
+</body>
+</html>
