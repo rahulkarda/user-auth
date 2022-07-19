@@ -1,3 +1,13 @@
+.home{
+    border: 2px solid black;
+    padding: 25px;
+    width: 50%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 /* body{
     height: 75vh;
     display: flex;
@@ -14,16 +24,6 @@
 /* .h-screen{
     height: 80vh !important;
 } */
-.home{
-    border: 2px solid black;
-    padding: 25px;
-    width: 50%;
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
 
 .auth{
     display: flex;
